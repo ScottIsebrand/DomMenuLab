@@ -5,6 +5,7 @@ const menuLinks = [
   { text: 'orders', href: '/orders' },
   { text: 'account', href: '/account' },
 ];
+
 // Task 1.0
 const mainEl = document.querySelector('main');
 // console.log(mainEl);
@@ -18,10 +19,13 @@ mainEl.classList.add('flex-ctr');
 
 // Task 2.0
 const topMenuEl = document.getElementById('top-menu');
+
 // Task 2.1
 topMenuEl.style.height = '100%';
+
 // Task 2.2
 topMenuEl.style.backgroundColor = 'var(--top-menu-bg)';
+
 // Task 2.3
 topMenuEl.classList.add('flex-around');
 // console.log(topMenuEl);
