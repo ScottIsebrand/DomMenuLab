@@ -33,5 +33,3 @@ for (menuLink of menuLinks) {
   a.innerText = menuLink.text;
   topMenuEl.appendChild(a);
 }
-
-// menuLinks.forEach()
