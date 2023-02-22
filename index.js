@@ -93,9 +93,17 @@ const showingSubMenu = false;
 // Task 5.2
 topMenuEl.addEventListener('click', function (event) {
   event.preventDefault();
-  // console.dir(event);
-  if (event.target.tagName !== 'a') {
+  console.dir(event.target);
+  if (event.target.tagName !== 'A') {
     return;
   }
-  console.log('a');
+  // Task 5.3
+  if (event.target.className === 'active') {
+    event.target.classList.remove('active');
+    showingSubMenu = false;
+    subMenuEl.style.top = '0';
+    return;
+  }
+  // console.dir('a');
+  // if (event.target.)
 });
