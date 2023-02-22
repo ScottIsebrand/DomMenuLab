@@ -1,11 +1,3 @@
-// Menu data structure
-const menuLinks = [
-  { text: 'about', href: '/about' },
-  { text: 'catalog', href: '/catalog' },
-  { text: 'orders', href: '/orders' },
-  { text: 'account', href: '/account' },
-];
-
 // Task 1.0
 const mainEl = document.querySelector('main');
 // console.log(mainEl);
@@ -30,10 +22,80 @@ topMenuEl.style.backgroundColor = 'var(--top-menu-bg)';
 topMenuEl.classList.add('flex-around');
 // console.log(topMenuEl);
 
-// Task 3.1.... Ugh, needed Abraham's help to do this. Was very lost.
-for (menuLink of menuLinks) {
+// Menu data structure
+const menuLinks = [
+  { text: 'about', href: '/about' },
+  {
+    text: 'catalog',
+    href: '#',
+    subLinks: [
+      { text: 'all', href: '/catalog/all' },
+      { text: 'top selling', href: '/catalog/top' },
+      { text: 'search', href: '/catalog/search' },
+    ],
+  },
+  {
+    text: 'orders',
+    href: '#',
+    subLinks: [
+      { text: 'new', href: '/orders/new' },
+      { text: 'pending', href: '/orders/pending' },
+      { text: 'history', href: '/orders/history' },
+    ],
+  },
+  {
+    text: 'account',
+    href: '#',
+    subLinks: [
+      { text: 'profile', href: '/account/profile' },
+      { text: 'sign out', href: '/account/signout' },
+    ],
+  },
+];
+
+// Task 3.1.... Abraham's help to do this. Was very lost.
+// Use .textContent because it's just plain text, not .innerText or .innerHTML
+// for (menuLink of menuLinks) {
+//   const a = document.createElement('a');
+//   a.setAttribute('href', menuLink.href);
+//   a.textContent = menuLink.text;
+//   topMenuEl.appendChild(a);
+// }
+
+menuLinks.forEach((objInArray) => {
+  // Create an <a> element
   const a = document.createElement('a');
-  a.setAttribute('href', menuLink.href);
-  a.innerText = menuLink.text;
-  topMenuEl.appendChild(a);
-}
+  //On the new element, add an href attribute with its value set to the hrefproperty of the "link" object.
+  a.setAttribute('href', objInArray.href);
+  // Set the new element's content to the value of the textproperty of the "link" object.
+  a.textContent = objInArray.text;
+  // Append the new element to the topMenuElelement.
+  // With .appendChild we can add only a Node object, ie, an object (like an element) we create, not string
+  // topMenuEl.appendChild(a);
+  topMenuEl.append(a);
+});
+
+// Task 4.0
+const subMenuEl = document.getElementById('sub-menu');
+//Task 4.1
+subMenuEl.style.height = '100%';
+// Task 4.2
+subMenuEl.style.backgroundColor = 'var(--sub-menu-bg)';
+// Task 4.3
+subMenuEl.classList.add('flex-around');
+// Task 4.4
+subMenuEl.style.position = 'absolute';
+// Task 4.5
+subMenuEl.style.top = '0';
+// Task 5.1
+const topMenuLinks = topMenuEl.querySelectorAll('a');
+const showingSubMenu = false;
+// Task 5.2
+topMenuEl.addEventListener('click', function (event) {
+  event.preventDefault();
+  // console.dir(event);
+  if (event.target.tagName !== 'a') {
+    return;
+  }
+  console.log('a');
+});
