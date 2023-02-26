@@ -179,8 +179,9 @@ subMenuEl.addEventListener('click', function (event) {
   // Task 6.2
   topMenuLinks.forEach((eachATag) => {
     eachATag.classList.remove('active');
-    // console.log(eachATag.classList);
-    // event.target.classList.remove('active')
   });
-  // topMenuLinks.classList.remove('active');
+  // Task 6.3
+  mainEl.innerHTML = `<h1>${event.target.textContent}</h1>`;
+  console.dir(event.target);
+  // Task 6.4
 });
