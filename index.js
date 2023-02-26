@@ -65,19 +65,20 @@ const menuLinks = [
 menuLinks.forEach((objInArray) => {
   // Create an <a> element
   const a = document.createElement('a');
-  //On the new element, add an href attribute with its value set to the hrefproperty of the "link" object.
+  //On the new element, add an href attribute with its value set to the href property of the "link" object.
   a.setAttribute('href', objInArray.href);
-  // Set the new element's content to the value of the textproperty of the "link" object.
+  // Set the new element's content to the value of the text property of the "link" object.
   a.textContent = objInArray.text;
   // Append the new element to the topMenuElelement.
   // With .appendChild we can add only a Node object, ie, an object (like an element) we create, not string
   // topMenuEl.appendChild(a);
   topMenuEl.append(a);
+  // console.log(a);
 });
 
 // Task 4.0
 const subMenuEl = document.getElementById('sub-menu');
-//Task 4.1
+// Task 4.1
 subMenuEl.style.height = '100%';
 // Task 4.2
 subMenuEl.style.backgroundColor = 'var(--sub-menu-bg)';
@@ -89,21 +90,97 @@ subMenuEl.style.position = 'absolute';
 subMenuEl.style.top = '0';
 // Task 5.1
 const topMenuLinks = topMenuEl.querySelectorAll('a');
-const showingSubMenu = false;
+let showingSubMenu = false;
 // Task 5.2
 topMenuEl.addEventListener('click', function (event) {
   event.preventDefault();
-  console.dir(event.target);
-  if (event.target.tagName !== 'A') {
+  // console.log(event);
+  if (event.target.tagName.toLowerCase() !== 'a') {
     return;
   }
+  // console.log(event.target.innerHTML);
+
   // Task 5.3
-  if (event.target.className === 'active') {
+  // console.dir(event.target);
+  if (event.target.classList.contains('active')) {
     event.target.classList.remove('active');
     showingSubMenu = false;
     subMenuEl.style.top = '0';
     return;
   }
-  // console.dir('a');
-  // if (event.target.)
+  // Task 5.4
+  topMenuLinks.forEach((eachATag) => {
+    eachATag.classList.remove('active');
+    // console.log(eachATag.classList);
+    // event.target.classList.remove('active')
+  });
+
+  // Task 5.5
+  event.target.classList.add('active');
+
+  // Task 5.6 Using .hasOwnProperty() -- help from Iskak M.
+  // console.dir(event.target);
+  // const clickedTagsContent = event.target.textContent;
+  // let clickedTagObject = {};
+  // menuLinks.forEach((linkObject) => {
+  //   if (event.target.textContent === linkObject.text) {
+  //     if (linkObject.hasOwnProperty('subLinks')) {
+  //       showingSubMenu = true;
+  //     } else {
+  //       showingSubMenu = false;
+  //     }
+  //     clickedTagObject = linkObject;
+  //   }
+  // });
+
+  // // Task 5.6 In Office Hours with Colton
+  let clickedObject = menuLinks.find(
+    (linkObject) => linkObject.text === event.target.textContent
+  );
+  // console.log(event.target);
+  // console.log(menuLinks);
+  if (clickedObject.subLinks) {
+    showingSubMenu = true;
+  } else {
+    showingSubMenu = false;
+  }
+
+  console.log(clickedObject.subLinks);
+
+  // Task 5.7 // go back up to event listener
+  if (showingSubMenu) {
+    function buildSubMenu(subLinksArray) {
+      subMenuEl.textContent = '';
+      // Task 5.8
+      subLinksArray.forEach((subLinkObject) => {
+        const aElement = document.createElement('a');
+        aElement.setAttribute('href', subLinkObject.href);
+        aElement.textContent = subLinkObject.text;
+        subMenuEl.appendChild(aElement);
+      });
+    }
+    buildSubMenu(clickedObject.subLinks);
+    subMenuEl.style.top = '100%';
+  } else {
+    subMenuEl.style.top = '0';
+  }
+});
+
+// Task 6.0
+subMenuEl.addEventListener('click', function (event) {
+  event.preventDefault();
+  console.dir(event.target);
+  if (event.target.nodeName.toLowerCase() !== 'a') {
+    return;
+  }
+  console.log(event.target.textContent);
+  showingSubMenu = false;
+  subMenuEl.style.top = '0';
+  // Task 6.2
+  topMenuLinks.forEach((eachATag) => {
+    eachATag.classList.remove('active');
+    // console.log(eachATag.classList);
+    // event.target.classList.remove('active')
+  });
+  // topMenuLinks.classList.remove('active');
 });
