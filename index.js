@@ -98,6 +98,9 @@ topMenuEl.addEventListener('click', function (event) {
   if (event.target.tagName.toLowerCase() !== 'a') {
     return;
   }
+  if (event.target.textContent.toLowerCase() === 'about') {
+    mainEl.innerHTML = `<h1>${event.target.textContent}</h1>`;
+  }
   // console.log(event.target.innerHTML);
 
   // Task 5.3
